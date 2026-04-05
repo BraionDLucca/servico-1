@@ -92,6 +92,10 @@ async function update(req, res) {
             return res.status(400).json({ "mensagem": erro.message, "resultado": null })
         }
 
+        if (erro.code === "CAMPOS_INVALIDOS") {
+            return res.status(400).json({ "mensagem": erro.message, "resultado": null })
+        }
+
         return res.status(500).json({ "mensagem": "Erro interno", "resultado": null })
     }
 }

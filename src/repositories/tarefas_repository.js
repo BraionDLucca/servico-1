@@ -24,14 +24,11 @@ async function buscarPorId(tarefaId) {
     })
 }
 
-async function atualizarPorId(tarefaId, body) {
+async function atualizarPorId(tarefaId, data) {
 
     return await prisma.tarefa.update({
         where: { id: tarefaId },
-        data: {
-            titulo: body.titulo,
-            descricao: body.descricao
-        }
+        data: data
     })
 }
 

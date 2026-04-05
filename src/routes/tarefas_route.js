@@ -14,7 +14,7 @@ router.get("/", tarefaController.getAll)
 router.get("/:id", tarefaController.getById)
 
 // UPDATE: Atualizar informações de uma tarefa por id
-router.put("/:id", tarefaController.update)
+router.patch("/:id", tarefaController.update)
 
 // DELETE: deletar uma tarefa po id
 router.delete("/:id", tarefaController.remove)

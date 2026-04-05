@@ -53,7 +53,20 @@ async function atualizarTarefaPorId(tarefaId, body) {
         throw erro
     }
 
-    const tarefa = await tarefaRepository.atualizarPorId(tarefaId, body)
+    // Filtragem de campos da requisição
+    data = {}
+    
+    if (body.titulo !== undefined) data.titulo = body.titulo
+    if (body.descricao !== undefined) data.descricao = body.descricao
+    if (body.concluida !== undefined) data.concluida = body.concluida
+
+    if (Object.keys(data).length === 0) {
+        const erro = new Error("Nenhum campo válido para atualizar")
+        erro.code = "CAMPOS_INVALIDOS"
+        throw erro
+    }
+    
+    const tarefa = await tarefaRepository.atualizarPorId(tarefaId, data)
 
     return tarefa
 }
