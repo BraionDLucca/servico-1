@@ -12,15 +12,21 @@ async function criar(tarefa) {
     })
 }
 
-async function buscarTodos() {
+async function buscarTodos(usuarioId) {
 
-    return await prisma.tarefa.findMany()
+    return await prisma.tarefa.findMany({
+        where: {
+            usuarioId: usuarioId
+        }
+    })
 }
 
-async function buscarPorId(tarefaId) {
+async function buscarPorId(tarefaId, usuarioId) {
 
     return await prisma.tarefa.findUnique({
-        where: { id: tarefaId },
+        where: {
+            id: tarefaId,
+        },
     })
 }
 

@@ -18,7 +18,7 @@ async function criarTarefa(tarefa) {
 
 async function listarTarefas(usuarioId) {
 
-    const todasTarefas = await tarefaRepository.buscarTodos()
+    const todasTarefas = await tarefaRepository.buscarTodos(usuarioId)
 
     if (todasTarefas.length === 0) {
         throw new Error("Nenhuma tarefa para listar")
@@ -52,7 +52,23 @@ async function buscarTarefaPorId(tarefaId, usuarioId) {
         throw erro
     }
 
-    const tarefa = await tarefaRepository.buscarPorId(tarefaId)
+    const tarefa = await tarefaRepository.buscarPorId(tarefaId, usuarioId)
+
+    if (tarefa.usuarioId !== usuarioId) {
+
+        const erro = new Error("Você não tem permissão para consultar esta tarefa.")
+        erro.code = "CONSULTA_SEM_PERMISSAO"
+
+        const logBody = {
+            "acao": erro.code,
+            "detalhe": erro.message,
+            "usuarioId": usuarioId
+        }
+
+        logService.enviarLog(logBody)
+
+        throw erro
+    }
 
     if (tarefa === null) {
 
