@@ -1,13 +1,13 @@
 const prisma = require("../database/adapter")
 
-async function criar(body) {
+async function criar(tarefa) {
 
     return await prisma.tarefa.create({
         data: {
-            titulo: body.titulo,
-            descricao: body.descricao,
-            concluida: body.concluida,
-            usuarioId: body.usuarioId
+            titulo: tarefa.titulo,
+            descricao: tarefa.descricao,
+            concluida: tarefa.concluida,
+            usuarioId: tarefa.usuarioId
         }
     })
 }
@@ -24,11 +24,11 @@ async function buscarPorId(tarefaId) {
     })
 }
 
-async function atualizarPorId(tarefaId, data) {
+async function atualizarPorId(tarefaId, dadosFiltrados) {
 
     return await prisma.tarefa.update({
         where: { id: tarefaId },
-        data: data
+        data: dadosFiltrados
     })
 }
 
