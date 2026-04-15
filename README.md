@@ -115,5 +115,5 @@ Este projeto faz parte de uma atividade prática de estudo de APIs RESTful utili
 - Execute o comando:
 
     ```
-    npx run src/server.js
+    npx run src/servidor.js
     ```
